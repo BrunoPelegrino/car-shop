@@ -38,4 +38,12 @@ export default class MotorcycleService {
     if (!motorcycle) throw new GenerateErrorMiddleware(404, 'Motorcycle not found');
     return this.createMotorcycleDomain(motorcycle);
   }
+
+  public async updateById(id: string, body: IMotorcycle) {
+    const motorcylceODM = new MotorCycleODM();
+    const updatedMotorcycle = await motorcylceODM.update(id, body);
+
+    if (!updatedMotorcycle) throw new GenerateErrorMiddleware(404, 'Motorcycle not found');
+    return this.createMotorcycleDomain(updatedMotorcycle);
+  }
 }
