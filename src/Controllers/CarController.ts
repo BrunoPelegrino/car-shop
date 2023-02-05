@@ -15,7 +15,7 @@ class CarController {
     this.service = new CarService();
   }
 
-  async addNewcar() {
+  public async addNewcar() {
     const car: ICar = {
       model: this.req.body.model,
       year: this.req.body.year,
@@ -48,6 +48,17 @@ class CarController {
     try {
       const newCar = await this.service.findById(id);
       return this.res.status(200).json(newCar);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  public async updateById() {
+    const { id } = this.req.params;
+    const { body } = this.req;
+    try {
+      const updatedCar = await this.service.updateById(id, body);
+      return this.res.status(200).json(updatedCar);
     } catch (error) {
       this.next(error);
     }

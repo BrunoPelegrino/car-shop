@@ -44,4 +44,25 @@ export const allCars: ICar[] = [
   },
 ];
 
+export const updatedCarInput: ICar = {
+  model: 'Marea',
+  year: 1992,
+  color: 'Red',
+  status: true,
+  buyValue: 12.000,
+  doorsQty: 2,
+  seatsQty: 5,
+};
+
+export const updatedCarOutput: ICar = {
+  id: '634852326b35b59438fbea2f',
+  model: 'Marea',
+  year: 1992,
+  color: 'Red',
+  status: true,
+  buyValue: 12.000,
+  doorsQty: 2,
+  seatsQty: 5,
+};
+
 export const wrongId = '22354';

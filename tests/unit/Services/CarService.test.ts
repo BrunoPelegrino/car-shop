@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import { Model } from 'mongoose';
 import sinon from 'sinon';
+import { allCars, carInput, existingCar,
+  updatedCarOutput, updatedCarInput } from '../Mocks/carMock';
 import CarService from '../../../src/Services/CarService';
-import { allCars, carInput, existingCar } from '../Mocks/carMock';
 
 describe('Testa o CarService', function () {
   afterEach(function () {
@@ -40,8 +41,28 @@ describe('Testa o CarService', function () {
 
     try {
       await carService.findById('634852326b35b59438fbea2f');
-    } catch (e) {
-      expect((e as Error).message).to.be.equal('Car not found');
+    } catch (error) {
+      expect((error as Error).message).to.be.equal('Car not found');
+    }
+  });
+
+  it('Testa se é possível realizar update de um carro', async function () {
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(updatedCarOutput);
+
+    const carService = new CarService();
+    const result = await carService.updateById('634852326b35b59438fbea2f', updatedCarInput);
+
+    expect(result).to.be.deep.equal(updatedCarOutput);
+  });
+
+  it('Testa erro no update', async function () {
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(updatedCarOutput);
+    const carService = new CarService();
+
+    try {
+      await carService.updateById('634852326b35b59438fbea2f', carInput);
+    } catch (error) {
+      expect((error as Error).message).to.be.equal('Car not found');
     }
   });
 });

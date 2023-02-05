@@ -1,4 +1,4 @@
-import { model, Model, models, Schema, Types } from 'mongoose';
+import { isValidObjectId, model, Model, models, Schema, Types, UpdateQuery } from 'mongoose';
 import GenerateErrorMiddleware from '../Middlewares/GenerateErrorMiddleware';
 
 class AutoODM<T> {
@@ -13,11 +13,11 @@ class AutoODM<T> {
     this.model = models[this.vehicle] || model(this.vehicle, this.schema);
   }
 
-  async create(object: T): Promise<T> {
+  public async create(object: T): Promise<T> {
     return this.model.create(object);
   }
 
-  async findAll(): Promise<T[]> {
+  public async findAll(): Promise<T[]> {
     return this.model.find();
   }
 
@@ -27,6 +27,15 @@ class AutoODM<T> {
     }
 
     return this.model.findById(id);
+  }
+
+  public async update(_id: string, obj: Partial<T>): Promise<T | null> {
+    if (!isValidObjectId(_id)) throw new GenerateErrorMiddleware(422, 'Invalid mongo id');
+    return this.model.findByIdAndUpdate(
+      { _id },
+      { ...obj } as UpdateQuery<T>,
+      { new: true },
+    );
   }
 }
 

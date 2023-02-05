@@ -17,7 +17,7 @@ class CarService {
     return null;
   }
 
-  async addNewCar(car: ICar) {
+  public async addNewCar(car: ICar) {
     const CarODM = new CarsODM();
     const newCar = await CarODM.create(car);
     return this.createCarDomain(newCar);
@@ -37,6 +37,14 @@ class CarService {
 
     if (!newCar) throw new GenerateErrorMiddleware(404, 'Car not found');
     return this.createCarDomain(newCar);
+  }
+
+  public async updateById(id: string, body: ICar) {
+    const CarODM = new CarsODM();
+    const updatedCar = await CarODM.update(id, body);
+
+    if (!updatedCar) throw new GenerateErrorMiddleware(404, 'Car not found');
+    return this.createCarDomain(updatedCar);
   }
 }
 
