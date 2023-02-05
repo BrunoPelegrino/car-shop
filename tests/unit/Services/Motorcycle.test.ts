@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { Model } from 'mongoose';
 import sinon from 'sinon';
+import { updatedMotorcycle } from '../../../__tests__/utils/MotorcyclesMock';
 import { existingMotorcycle, motorcycleInput, allMotorcycle } from '../Mocks/motorcycleMocks';
 
 import MotorcycleService from '../../../src/Services/MotorcycleService';
@@ -9,7 +10,7 @@ describe('Testa o MotorcycleService', function () {
   afterEach(function () {
     sinon.restore();
   });
-  it('Adiciona um novo carro', async function () {
+  it('Adiciona uma nova mota', async function () {
     sinon.stub(Model, 'create').resolves(existingMotorcycle);
     
     const motoService = new MotorcycleService();
@@ -18,7 +19,7 @@ describe('Testa o MotorcycleService', function () {
     expect(result).to.be.deep.equal(existingMotorcycle);
   }); 
     
-  it('Lista todos os carros', async function () {
+  it('Lista todas as motos', async function () {
     sinon.stub(Model, 'find').resolves(allMotorcycle);
   
     const motoService = new MotorcycleService();
@@ -43,6 +44,26 @@ describe('Testa o MotorcycleService', function () {
       await motoService.findById('634852326b35b59438fbea2f');
     } catch (error) {
       expect((error as Error).message).to.be.equal('Motorcycle not found');
+    }
+  });
+
+  it('Testa se é possível realizar update de uma moto', async function () {
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(updatedMotorcycle);
+
+    const motoService = new MotorcycleService();
+    const result = await motoService.updateById('634852326b35b59438fbea2f', allMotorcycle[0]);
+
+    expect(result).to.be.deep.equal(updatedMotorcycle);
+  });
+
+  it('Testa erro no update', async function () {
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(updatedMotorcycle);
+    const motoService = new MotorcycleService();
+
+    try {
+      await motoService.updateById('634852326b35b59438fbea2f', motorcycleInput);
+    } catch (error) {
+      expect((error as Error).message).to.be.equal('Car not found');
     }
   });
 });

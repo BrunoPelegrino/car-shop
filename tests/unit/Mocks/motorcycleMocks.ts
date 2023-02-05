@@ -43,3 +43,14 @@ export const allMotorcycle: IMotorcycle[] = [
     engineCapacity: 1000,
   },
 ];
+
+export const updatedMoto: IMotorcycle = {
+  id: '634852326b35b59438fbea2f',
+  model: 'Honda Cb 600f a',
+  year: 2014,
+  color: 'Red',
+  status: true,
+  buyValue: 45.000,
+  category: 'Street',
+  engineCapacity: 600,
+};
