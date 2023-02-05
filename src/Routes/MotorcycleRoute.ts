@@ -7,4 +7,12 @@ MotorcyclesRouter.post('/', (req, res, next) => (
   new MotorcycleController(req, res, next).addNewMotorcycle()
 ));
 
+MotorcyclesRouter.get('/', (req, res, next) => (
+  new MotorcycleController(req, res, next).findAll()
+));
+
+MotorcyclesRouter.get('/:id', (req, res, next) => (
+  new MotorcycleController(req, res, next).findById()
+));
+
 export default MotorcyclesRouter;

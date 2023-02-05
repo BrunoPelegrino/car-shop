@@ -25,18 +25,18 @@ class CarService {
 
   public async findAll() {
     const CarODM = new CarsODM();
-    const newCars = await CarODM.findAll();
-    const cars = newCars.map((newCar) => this.createCarDomain(newCar));
+    const findCars = await CarODM.findAll();
+    const cars = findCars.map((all) => this.createCarDomain(all));
 
     return cars;
   }
 
   public async findById(id: string) {
     const CarODM = new CarsODM();
-    const newCar = await CarODM.findById(id);
+    const findCar = await CarODM.findById(id);
 
-    if (!newCar) throw new GenerateErrorMiddleware(404, 'Car not found');
-    return this.createCarDomain(newCar);
+    if (!findCar) throw new GenerateErrorMiddleware(404, 'Car not found');
+    return this.createCarDomain(findCar);
   }
 
   public async updateById(id: string, body: ICar) {
