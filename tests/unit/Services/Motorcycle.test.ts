@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import { Model } from 'mongoose';
 import sinon from 'sinon';
-import { updatedMotorcycle } from '../../../__tests__/utils/MotorcyclesMock';
-import { existingMotorcycle, motorcycleInput, allMotorcycle } from '../Mocks/motorcycleMocks';
+import { existingMotorcycle, motorcycleInput,
+  allMotorcycle, updatedMoto } from '../Mocks/motorcycleMocks';
 
 import MotorcycleService from '../../../src/Services/MotorcycleService';
 
@@ -48,16 +48,16 @@ describe('Testa o MotorcycleService', function () {
   });
 
   it('Testa se é possível realizar update de uma moto', async function () {
-    sinon.stub(Model, 'findByIdAndUpdate').resolves(updatedMotorcycle);
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(updatedMoto);
 
     const motoService = new MotorcycleService();
-    const result = await motoService.updateById('634852326b35b59438fbea2f', allMotorcycle[0]);
+    const result = await motoService.updateById('6348513f34c397abcad040b2', allMotorcycle[0]);
 
-    expect(result).to.be.deep.equal(updatedMotorcycle);
+    expect(result).to.be.deep.equal(updatedMoto);
   });
 
   it('Testa erro no update', async function () {
-    sinon.stub(Model, 'findByIdAndUpdate').resolves(updatedMotorcycle);
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(updatedMoto);
     const motoService = new MotorcycleService();
 
     try {

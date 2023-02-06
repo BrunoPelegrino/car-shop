@@ -37,6 +37,10 @@ class AutoODM<T> {
       { new: true },
     );
   }
+
+  public async delete(id: string) {
+    await this.model.deleteOne({ _id: id });
+  }
 }
 
 export default AutoODM;

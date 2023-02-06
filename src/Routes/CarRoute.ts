@@ -7,5 +7,6 @@ CarRouter.post('/', (req, res, next) => new CarController(req, res, next).addNew
 CarRouter.get('/', (req, res, next) => new CarController(req, res, next).findAll());
 CarRouter.get('/:id', (req, res, next) => new CarController(req, res, next).findById());
 CarRouter.put('/:id', (req, res, next) => new CarController(req, res, next).updateById());
+CarRouter.delete('/:id', (req, res, next) => new CarController(req, res, next).deleteById());
 
 export default CarRouter;

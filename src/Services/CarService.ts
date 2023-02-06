@@ -46,6 +46,11 @@ class CarService {
     if (!updatedCar) throw new GenerateErrorMiddleware(404, 'Car not found');
     return this.createCarDomain(updatedCar);
   }
+
+  public async deleteById(id: string) {
+    const CarODM = new CarsODM();
+    await CarODM.delete(id);
+  }
 }
 
 export default CarService;
