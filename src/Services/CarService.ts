@@ -49,7 +49,10 @@ class CarService {
 
   public async deleteById(id: string) {
     const CarODM = new CarsODM();
-    await CarODM.delete(id);
+    const x = await this.carODM.findById(id);
+    if (x) {
+      await CarODM.delete(id);
+    }
   }
 }
 
